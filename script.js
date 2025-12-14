@@ -25,11 +25,9 @@ function renderProducts() {
 // Render cart list
 function renderCart(){
 	cartList.innerHTML="";
-	let storageCart=JSON.parse(sessionStorage.getItem("cartList"))||{}
-	
-	for(let productname in storageCart){
+	for(let productname in cartStorage){
 	 const li = document.createElement("li");
-	 li.innerHTML = `${productname} - $${storageCart[productname]}`
+	 li.innerHTML = `${productname} - $${cartStorage[productname]}`
      cartList.appendChild(li)
 }
 }
@@ -47,6 +45,7 @@ function addToCart(productId) {
 // Remove item from cart
 clearbtn.addEventListener("click",removeFromCart)
 function removeFromCart() {
+	cartStorage={};
 	sessionStorage.clear()
 	clearCart()
 }

@@ -8,7 +8,7 @@ const products = [
   { id: 4, name: "Product 4", price: 40 },
   { id: 5, name: "Product 5", price: 50 },
 ];
-  let cartStorage=JSON.parse(sessionStorage.getItem("cartList"))||{}
+  let cartStorage=JSON.parse(sessionStorage.getItem("cartList"))||[]
 // DOM elements
 const productList = document.getElementById("product-list");
 const cartList=document.getElementById("cart-list")
@@ -25,9 +25,9 @@ function renderProducts() {
 // Render cart list
 function renderCart(){
 	cartList.innerHTML="";
-	for(let productname in cartStorage){
+	for(let product of cartStorage){
 	 const li = document.createElement("li");
-	 li.innerHTML = `${productname} - $${cartStorage[productname]}`
+	 li.innerHTML = `${product.Pname} - $${product.Pprice}`
      cartList.appendChild(li)
 }
 }
@@ -37,7 +37,10 @@ function addToCart(productId) {
 	const product=products.find(p=>p.id===productId);
 	const productname=product.name;
 	const productprice=product.price;
-	cartStorage[productname]=productprice;
+	cartStorage.push({
+		Pname:productname,
+		Pprice:productprice
+	})
 	sessionStorage.setItem("cartList",JSON.stringify(cartStorage));
 	renderCart()
 }
@@ -45,7 +48,7 @@ function addToCart(productId) {
 // Remove item from cart
 clearbtn.addEventListener("click",removeFromCart)
 function removeFromCart() {
-	cartStorage={};
+	cartStorage=[];
 	sessionStorage.clear()
 	clearCart()
 }

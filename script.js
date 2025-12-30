@@ -49,7 +49,7 @@ function addToCart(productId) {
 clearbtn.addEventListener("click",removeFromCart)
 function removeFromCart() {
 	cartStorage=[];
-	sessionStorage.clear()
+	sessionStorage.removeItem("cartList")
 	clearCart()
 }
 
